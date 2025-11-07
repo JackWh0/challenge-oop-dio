@@ -20,10 +20,8 @@ public class Mentoring extends Content{
 
     @Override
     public String toString() {
-        return "Mentoring{" +
-                "title='" + this.getTitle() + '\'' +
-                ", description='" + this.getDescription() + '\'' +
-                ", date=" + date +
-                '}';
+        return "Mentoring: " +
+                this.getTitle() + " | " +
+                "date: " + date;
     }
 }
