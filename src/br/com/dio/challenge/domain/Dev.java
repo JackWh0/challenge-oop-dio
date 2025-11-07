@@ -8,7 +8,7 @@ import java.util.Set;
 public class Dev {
     private String name;
     private Set<Content> subscribedContent = new LinkedHashSet<>();
-    private Set<Content> contentInProgress = new LinkedHashSet<>();
+    private Set<Content> alreadyFinishedContent = new LinkedHashSet<>();
 
     public void subscribeToBootcamp(Bootcamp bootcamp) {
         this.subscribedContent.addAll(bootcamp.getAvailableContent());
@@ -18,7 +18,7 @@ public class Dev {
     public void updateProgress(){
         Optional<Content> content = this.subscribedContent.stream().findFirst();
         if(content.isPresent()){
-            this.contentInProgress.add(content.get());
+            this.alreadyFinishedContent.add(content.get());
             this.subscribedContent.remove(content.get());
         }else {
             System.out.println("No content available");
@@ -26,7 +26,7 @@ public class Dev {
     }
 
     public double calculateTotalXp(){
-        return this.contentInProgress
+        return this.alreadyFinishedContent
                         .stream()
                         .mapToDouble(Content::calculateXp)
                         .sum();
@@ -48,23 +48,23 @@ public class Dev {
         this.subscribedContent = subscribedContent;
     }
 
-    public Set<Content> getContentInProgress() {
-        return contentInProgress;
+    public Set<Content> getAlreadyFinishedContent() {
+        return alreadyFinishedContent;
     }
 
-    public void setContentInProgress(Set<Content> contentInProgress) {
-        this.contentInProgress = contentInProgress;
+    public void setAlreadyFinishedContent(Set<Content> alreadyFinishedContent) {
+        this.alreadyFinishedContent = alreadyFinishedContent;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Dev dev = (Dev) o;
-        return Objects.equals(name, dev.name) && Objects.equals(subscribedContent, dev.subscribedContent) && Objects.equals(contentInProgress, dev.contentInProgress);
+        return Objects.equals(name, dev.name) && Objects.equals(subscribedContent, dev.subscribedContent) && Objects.equals(alreadyFinishedContent, dev.alreadyFinishedContent);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, subscribedContent, contentInProgress);
+        return Objects.hash(name, subscribedContent, alreadyFinishedContent);
     }
 }
